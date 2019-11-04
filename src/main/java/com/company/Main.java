@@ -12,9 +12,9 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import java.io.IOException;
 
-
 public class Main {
   static class ExampleServlet extends HttpServlet {
+
     static final Counter requests = Counter.build()
       .name("hello_worlds_total")
       .help("Number of hello worlds served.").register();
@@ -23,6 +23,7 @@ public class Main {
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {
       resp.getWriter().println("Hello World!");
+
       // Increment the number of requests.
       requests.inc();
     }
@@ -33,13 +34,15 @@ public class Main {
     ServletContextHandler context = new ServletContextHandler();
     context.setContextPath("/");
     server.setHandler(context);
+
     // Expose our example servlet.
     context.addServlet(new ServletHolder(new ExampleServlet()), "/");
-    // Expose Promtheus metrics.
+
+    // Expose Prometheus metrics.
     context.addServlet(new ServletHolder(new MetricsServlet()), "/metrics");
+
     // Add metrics about CPU, JVM memory etc.
     DefaultExports.initialize();
-
 
     // Start the webserver.
     server.start();

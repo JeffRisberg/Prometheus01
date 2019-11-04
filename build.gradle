@@ -2,13 +2,22 @@ repositories {
   mavenCentral()
 }
 
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+  }
+}
+
 apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 version = '0.1.0'
 
 ext {
   slf4jVersion = '1.7.26'
-  elasticSearchClientVersion = '6.8.3'
   junitVersion = '4.12'
 }
 

@@ -1,69 +1,48 @@
 package com.company;
 
-import com.company.service.CountService;
-import com.company.service.DataService;
-import com.company.service.DeleteService;
-import com.company.service.IngestService;
-import org.elasticsearch.client.Client;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.transport.client.PreBuiltTransportClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.prometheus.client.Counter;
+import io.prometheus.client.exporter.MetricsServlet;
+import io.prometheus.client.hotspot.DefaultExports;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import java.io.IOException;
 
-import java.net.InetSocketAddress;
-import java.util.Arrays;
 
 public class Main {
-  private static final Logger logger = LoggerFactory.getLogger(Main.class);
+  static class ExampleServlet extends HttpServlet {
+    static final Counter requests = Counter.build()
+      .name("hello_worlds_total")
+      .help("Number of hello worlds served.").register();
 
-  public static void main(String[] args) {
-    String clusterName = "elasticsearch";
-    String indexName = "products";
+    @Override
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
+      throws ServletException, IOException {
+      resp.getWriter().println("Hello World!");
+      // Increment the number of requests.
+      requests.inc();
+    }
+  }
 
-    Settings settings = Settings.builder()
-      .put("cluster.name", clusterName).build();
+  public static void main( String[] args ) throws Exception {
+    Server server = new Server(1234);
+    ServletContextHandler context = new ServletContextHandler();
+    context.setContextPath("/");
+    server.setHandler(context);
+    // Expose our example servlet.
+    context.addServlet(new ServletHolder(new ExampleServlet()), "/");
+    // Expose Promtheus metrics.
+    context.addServlet(new ServletHolder(new MetricsServlet()), "/metrics");
+    // Add metrics about CPU, JVM memory etc.
+    DefaultExports.initialize();
 
-    Client client = new PreBuiltTransportClient(settings)
-      .addTransportAddress(new TransportAddress(new InetSocketAddress("127.0.0.1", 9300)));
 
-    CountService countService = new CountService(client, indexName);
-    DataService dataService = new DataService(client, indexName);
-    IngestService ingestService = new IngestService(client, indexName);
-    DeleteService deleteService = new DeleteService(client, indexName);
-
-    // Count
-    System.out.println("getMatchAllQueryCount " + countService.getMatchAllQueryCount());
-    System.out.println("getBoolQueryCount " + countService.getBoolQueryCount());
-    System.out.println("getPhraseQueryCount " + countService.getPhraseQueryCount());
-
-    // Data
-    System.out.println("getMatchAllQueryData");
-    dataService.getMatchAllQueryData().forEach(item -> System.out.println(item));
-
-    System.out.println("getBoolQueryData");
-    dataService.getBoolQueryData().forEach(item -> System.out.println(item));
-
-    System.out.println("getPhraseQueryData");
-    dataService.getPhraseQueryData().forEach(item -> System.out.println(item));
-
-    // Ingest single record
-    System.out.println("\nIngestService response::: " + ingestService.ingest("default", json1));
-
-    // Ingest batch of records
-    System.out.println("\nIngestService response::: " + ingestService.ingest("default", Arrays.asList(json2, json3, json4)));
-
-    // Count records
-    System.out.println("getMatchAllQueryCount " + countService.getMatchAllQueryCount());
-
-    // Delete
-    System.out.println("delete by query " + deleteService.deleteByQuery("furby"));
-
-    System.out.println("delete by query " + deleteService.deleteByQuery("blizzard"));
-
-    // Count records
-    System.out.println("getMatchAllQueryCount " + countService.getMatchAllQueryCount());
-
-    client.close();
+    // Start the webserver.
+    server.start();
+    server.join();
   }
 }

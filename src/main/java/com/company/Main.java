@@ -27,6 +27,9 @@ public class Main {
       // Increment the number of requests.
       requests.inc();
 
+      System.out.println(req.getRequestURI());
+      System.out.println(req.getMethod());
+      System.out.println("count " + requests.get());
       resp.getWriter().println("Hello World!");
     }
   }
@@ -38,7 +41,7 @@ public class Main {
     server.setHandler(context);
 
     // Expose our example servlet.
-    context.addServlet(new ServletHolder(new ExampleServlet()), "/");
+    context.addServlet(new ServletHolder(new ExampleServlet()), "/hello");
 
     // Expose Prometheus metrics.
     context.addServlet(new ServletHolder(new MetricsServlet()), "/metrics");

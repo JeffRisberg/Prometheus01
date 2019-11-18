@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Main {
-  static class ExampleServlet extends HttpServlet {
+  static class HelloServlet extends HttpServlet {
 
-    static final Counter requests = Counter.build()
+    static final Counter helloRequests = Counter.build()
       .name("hello_worlds_total")
       .help("Hello Worlds Requested.").register();
 
@@ -25,12 +25,32 @@ public class Main {
       throws ServletException, IOException {
 
       // Increment the number of requests.
-      requests.inc();
+      helloRequests.inc();
 
       System.out.println(req.getRequestURI());
       System.out.println(req.getMethod());
-      System.out.println("count " + requests.get());
+      System.out.println("count " + helloRequests.get());
       resp.getWriter().println("Hello World!");
+    }
+  }
+
+  static class GoodbyServlet extends HttpServlet {
+
+    static final Counter goodbyRequests = Counter.build()
+      .name("hello_worlds_total")
+      .help("Hello Worlds Requested.").register();
+
+    @Override
+    protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
+      throws ServletException, IOException {
+
+      // Increment the number of requests.
+      goodbyRequests.inc();
+
+      System.out.println(req.getRequestURI());
+      System.out.println(req.getMethod());
+      System.out.println("count " + goodbyRequests.get());
+      resp.getWriter().println("Goodby World!");
     }
   }
 
@@ -40,8 +60,9 @@ public class Main {
     context.setContextPath("/");
     server.setHandler(context);
 
-    // Expose our example servlet.
-    context.addServlet(new ServletHolder(new ExampleServlet()), "/hello");
+    // Expose our example servlets.
+    context.addServlet(new ServletHolder(new HelloServlet()), "/hello");
+    context.addServlet(new ServletHolder(new GoodbyServlet()), "/goodby");
 
     // Expose Prometheus metrics.
     context.addServlet(new ServletHolder(new MetricsServlet()), "/metrics");

@@ -14,12 +14,12 @@
     <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_servlet:0.8.0" level="project" />
     <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_common:0.8.0" level="project" />
     <orderEntry type="library" name="Gradle: io.prometheus:simpleclient:0.8.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-servlet:9.4.22.v20191022" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-security:9.4.22.v20191022" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-server:9.4.22.v20191022" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-servlet:9.4.23.v20191118" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-security:9.4.23.v20191118" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-server:9.4.23.v20191118" level="project" />
     <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-http:9.4.22.v20191022" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-io:9.4.22.v20191022" level="project" />
-    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.22.v20191022" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-http:9.4.23.v20191118" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-io:9.4.23.v20191118" level="project" />
+    <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-util:9.4.23.v20191118" level="project" />
   </component>
 </module>

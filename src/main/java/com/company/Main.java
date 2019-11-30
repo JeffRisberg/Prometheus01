@@ -50,7 +50,7 @@ public class Main {
       System.out.println(req.getRequestURI());
       System.out.println(req.getMethod());
       System.out.println("count " + goodbyeRequests.get());
-      resp.getWriter().println("Goodby World!");
+      resp.getWriter().println("Goodbye World!");
     }
   }
 

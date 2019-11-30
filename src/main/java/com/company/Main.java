@@ -34,22 +34,22 @@ public class Main {
     }
   }
 
-  static class GoodbyServlet extends HttpServlet {
+  static class GoodbyeServlet extends HttpServlet {
 
-    static final Counter goodbyRequests = Counter.build()
-      .name("hello_worlds_total")
-      .help("Hello Worlds Requested.").register();
+    static final Counter goodbyeRequests = Counter.build()
+      .name("goodbye_worlds_total")
+      .help("Goodbye Worlds Requested.").register();
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {
 
       // Increment the number of requests.
-      goodbyRequests.inc();
+      goodbyeRequests.inc();
 
       System.out.println(req.getRequestURI());
       System.out.println(req.getMethod());
-      System.out.println("count " + goodbyRequests.get());
+      System.out.println("count " + goodbyeRequests.get());
       resp.getWriter().println("Goodby World!");
     }
   }
@@ -62,7 +62,7 @@ public class Main {
 
     // Expose our example servlets.
     context.addServlet(new ServletHolder(new HelloServlet()), "/hello");
-    context.addServlet(new ServletHolder(new GoodbyServlet()), "/goodby");
+    context.addServlet(new ServletHolder(new GoodbyeServlet()), "/goodbye");
 
     // Expose Prometheus metrics.
     context.addServlet(new ServletHolder(new MetricsServlet()), "/metrics");

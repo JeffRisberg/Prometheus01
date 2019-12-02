@@ -1,6 +1,7 @@
 package com.company;
 
 import io.prometheus.client.Counter;
+import io.prometheus.client.Gauge;
 import io.prometheus.client.exporter.MetricsServlet;
 import io.prometheus.client.hotspot.DefaultExports;
 import org.eclipse.jetty.server.Server;
@@ -19,6 +20,11 @@ public class Main {
     static final Counter helloRequests = Counter.build()
       .name("hello_worlds_total")
       .help("Hello Worlds Requested.").register();
+
+    private static final Gauge JOBS_IN_QUEUE = Gauge.build()
+      .name("jobs_in_queue")
+      .help("Current number of jobs in the queue")
+      .register();
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
@@ -39,6 +45,11 @@ public class Main {
     static final Counter goodbyeRequests = Counter.build()
       .name("goodbye_worlds_total")
       .help("Goodbye Worlds Requested.").register();
+
+    private static final Gauge JOBS_IN_QUEUE = Gauge.build()
+      .name("jobs_in_queue")
+      .help("Current number of jobs in the queue")
+      .register();
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)

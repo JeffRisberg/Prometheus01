@@ -2,6 +2,7 @@ package com.company;
 
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
+import io.prometheus.client.Histogram;
 import io.prometheus.client.exporter.MetricsServlet;
 import io.prometheus.client.hotspot.DefaultExports;
 import org.eclipse.jetty.server.Server;
@@ -19,24 +20,37 @@ public class Main {
 
     static final Counter helloRequests = Counter.build()
       .name("hello_worlds_total")
-      .help("Hello Worlds Requested.").register();
+      .help("Hello Worlds Requested.")
+      .register();
 
     private static final Gauge JOBS_IN_QUEUE = Gauge.build()
       .name("jobs_in_queue")
       .help("Current number of jobs in the queue")
       .register();
 
+    private static final Histogram requestLatency = Histogram.build()
+      .name("requests_latency_seconds")
+      .help("Request latency in seconds.")
+      .register();
+
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {
 
-      // Increment the number of requests.
-      helloRequests.inc();
+      requestLatency.time(() -> {
+        // Increment the number of requests.
+        helloRequests.inc();
 
-      System.out.println(req.getRequestURI());
-      System.out.println(req.getMethod());
-      System.out.println("count " + helloRequests.get());
-      resp.getWriter().println("Hello World!");
+        System.out.println(req.getRequestURI());
+        System.out.println(req.getMethod());
+        System.out.println("count " + helloRequests.get());
+
+        try {
+          resp.getWriter().println("Hello World!");
+        } catch (Exception e) {
+
+        }
+      });
     }
   }
 

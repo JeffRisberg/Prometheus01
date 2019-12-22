@@ -28,16 +28,16 @@ public class Main {
       .help("Current number of jobs in the queue")
       .register();
 
-    private static final Histogram requestLatency = Histogram.build()
-      .name("requests_latency_seconds")
-      .help("Request latency in seconds.")
+    private static final Histogram helloRequestLatency = Histogram.build()
+      .name("hello_requests_latency_seconds")
+      .help("Hello Request latency in seconds.")
       .register();
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {
 
-      requestLatency.time(() -> {
+      helloRequestLatency.time(() -> {
         // Increment the number of requests.
         helloRequests.inc();
 
@@ -48,7 +48,6 @@ public class Main {
         try {
           resp.getWriter().println("Hello World!");
         } catch (Exception e) {
-
         }
       });
     }
@@ -65,17 +64,28 @@ public class Main {
       .help("Current number of jobs in the queue")
       .register();
 
+    private static final Histogram goodbyeRequestLatency = Histogram.build()
+      .name("goodbye_requests_latency_seconds")
+      .help("Goodbye Request latency in seconds.")
+      .register();
+
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
       throws ServletException, IOException {
 
-      // Increment the number of requests.
-      goodbyeRequests.inc();
+      goodbyeRequestLatency.time(() -> {
+        // Increment the number of requests.
+        goodbyeRequests.inc();
 
-      System.out.println(req.getRequestURI());
-      System.out.println(req.getMethod());
-      System.out.println("count " + goodbyeRequests.get());
-      resp.getWriter().println("Goodbye World!");
+        System.out.println(req.getRequestURI());
+        System.out.println(req.getMethod());
+        System.out.println("count " + goodbyeRequests.get());
+
+        try {
+          resp.getWriter().println("Goodbye World!");
+        } catch (Exception e) {
+        }
+      });
     }
   }
 

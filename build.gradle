@@ -31,9 +31,9 @@ dependencies {
   compile "org.slf4j:slf4j-api:$slf4jVersion"
   runtime "org.slf4j:slf4j-simple:$slf4jVersion"
 
-  compile "io.prometheus:simpleclient:0.8.0"
-  compile 'io.prometheus:simpleclient_hotspot:0.8.0'
-  compile "io.prometheus:simpleclient_servlet:0.8.0"
+  compile "io.prometheus:simpleclient:0.8.1"
+  compile 'io.prometheus:simpleclient_hotspot:0.8.1'
+  compile "io.prometheus:simpleclient_servlet:0.8.1"
 
   compile "org.eclipse.jetty:jetty-servlet:9.4.23.v20191118"
 

@@ -35,9 +35,10 @@ dependencies {
   compile 'io.prometheus:simpleclient_hotspot:0.8.1'
   compile "io.prometheus:simpleclient_servlet:0.8.1"
 
-  compile "org.eclipse.jetty:jetty-servlet:9.4.23.v20191118"
+  compile "org.eclipse.jetty:jetty-servlet:9.4.26.v20200117"
 
   testCompile group: 'junit', name: 'junit', version: junitVersion
+
 }
 
 jar {

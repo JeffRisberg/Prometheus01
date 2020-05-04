@@ -3,16 +3,13 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ES01" target="1.8" />
       <module name="ES01_main" target="1.8" />
       <module name="ES01_test" target="1.8" />
+      <module name="Prometheus01.main" target="1.8" />
+      <module name="Prometheus01.test" target="1.8" />
       <module name="Prometheus01_main" target="1.8" />
       <module name="Prometheus01_test" target="1.8" />
     </bytecodeTargetLevel>

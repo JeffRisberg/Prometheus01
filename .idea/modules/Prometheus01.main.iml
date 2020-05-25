@@ -10,10 +10,10 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.26" level="project" />
     <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_hotspot:0.8.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_servlet:0.8.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-simple:1.7.26" level="project" />
+    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_servlet:0.8.1" level="project" />
     <orderEntry type="library" name="Gradle: io.prometheus:simpleclient_common:0.8.1" level="project" />
-    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient:0.8.1" level="project" />
+    <orderEntry type="library" name="Gradle: io.prometheus:simpleclient:0.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-servlet:9.4.26.v20200117" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-security:9.4.26.v20200117" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-server:9.4.26.v20200117" level="project" />

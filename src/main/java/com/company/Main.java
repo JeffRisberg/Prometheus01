@@ -23,10 +23,10 @@ public class Main {
       .help("Hello Worlds Requested.")
       .register();
 
-    private static final Gauge JOBS_IN_QUEUE = Gauge.build()
+    /*private static final Gauge JOBS_IN_QUEUE = Gauge.build()
       .name("jobs_in_queue")
       .help("Current number of jobs in the queue")
-      .register();
+      .register();*/
 
     private static final Histogram helloRequestLatency = Histogram.build()
       .name("hello_requests_latency_seconds")

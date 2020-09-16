@@ -16,17 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class Main {
-  static class HelloServlet extends HttpServlet {
 
-    static final Counter helloRequests = Counter.build()
+  static class HelloServlet extends HttpServlet {
+    private static final Counter helloRequests = Counter.build()
       .name("hello_worlds_total")
       .help("Hello Worlds Requested.")
       .register();
-
-    /*private static final Gauge JOBS_IN_QUEUE = Gauge.build()
-      .name("jobs_in_queue")
-      .help("Current number of jobs in the queue")
-      .register();*/
 
     private static final Histogram helloRequestLatency = Histogram.build()
       .name("hello_requests_latency_seconds")
@@ -54,15 +49,9 @@ public class Main {
   }
 
   static class GoodbyeServlet extends HttpServlet {
-
-    static final Counter goodbyeRequests = Counter.build()
+    private static final Counter goodbyeRequests = Counter.build()
       .name("goodbye_worlds_total")
       .help("Goodbye Worlds Requested.").register();
-
-    private static final Gauge JOBS_IN_QUEUE = Gauge.build()
-      .name("jobs_in_queue")
-      .help("Current number of jobs in the queue")
-      .register();
 
     private static final Histogram goodbyeRequestLatency = Histogram.build()
       .name("goodbye_requests_latency_seconds")

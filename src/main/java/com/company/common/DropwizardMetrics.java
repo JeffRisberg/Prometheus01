@@ -7,18 +7,17 @@ import io.prometheus.client.hotspot.DefaultExports;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class DropWizardMetrics {
-
+public class DropwizardMetrics {
+  private static DropwizardMetrics instance = null;
   private MetricRegistry registry;
-  private static DropWizardMetrics instance = null;
 
-  private DropWizardMetrics() {
+  private DropwizardMetrics() {
     registry = new MetricRegistry();
 
     // native jvm metrics
     DefaultExports.initialize();
 
-    // Register DropWizard metrics with prometheus default registry
+    // Register DropWizard metrics with Prometheus default registry
     CollectorRegistry.defaultRegistry.register(new DropwizardExports(registry));
   }
 
@@ -26,11 +25,10 @@ public class DropWizardMetrics {
     return registry;
   }
 
-  public static DropWizardMetrics getInstance() {
+  public static DropwizardMetrics getInstance() {
     if (instance == null) {
-      instance = new DropWizardMetrics();
+      instance = new DropwizardMetrics();
     }
     return instance;
   }
-
 }

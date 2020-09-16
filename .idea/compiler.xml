@@ -4,12 +4,10 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.8">
       <module name="ES01" target="1.8" />
       <module name="ES01_main" target="1.8" />
       <module name="ES01_test" target="1.8" />
-      <module name="Prometheus01.main" target="1.8" />
-      <module name="Prometheus01.test" target="1.8" />
       <module name="Prometheus01_main" target="1.8" />
       <module name="Prometheus01_test" target="1.8" />
     </bytecodeTargetLevel>

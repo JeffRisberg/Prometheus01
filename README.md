@@ -1,5 +1,3 @@
-# Prometheus02
+# Prometheus01
 
 Java code to publish to Prometheus
-
-Add Dropwizard metrics

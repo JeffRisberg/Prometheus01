@@ -1,5 +1,6 @@
 package com.company;
 
+import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Counter;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.Histogram;
@@ -17,15 +18,21 @@ import java.io.IOException;
 
 public class Main {
 
+  private static CollectorRegistry registry = CollectorRegistry.defaultRegistry;
+
   static class HelloServlet extends HttpServlet {
+
     private static final Counter helloRequests =
-        Counter.build().name("hello_worlds_total").help("Hello Worlds Requested.").register();
+        Counter.build()
+          .name("hello_worlds_total")
+          .help("Hello Worlds Requested.")
+          .register(registry);
 
     private static final Histogram helloRequestLatency =
         Histogram.build()
             .name("hello_requests_latency_seconds")
             .help("Hello Request latency in seconds.")
-            .register();
+            .register(registry);
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
@@ -50,13 +57,16 @@ public class Main {
 
   static class GoodbyeServlet extends HttpServlet {
     private static final Counter goodbyeRequests =
-        Counter.build().name("goodbye_worlds_total").help("Goodbye Worlds Requested.").register();
+        Counter.build()
+          .name("goodbye_worlds_total")
+          .help("Goodbye Worlds Requested.")
+          .register(registry);
 
     private static final Histogram goodbyeRequestLatency =
         Histogram.build()
             .name("goodbye_requests_latency_seconds")
             .help("Goodbye Request latency in seconds.")
-            .register();
+            .register(registry);
 
     @Override
     protected void doGet(final HttpServletRequest req, final HttpServletResponse resp)
